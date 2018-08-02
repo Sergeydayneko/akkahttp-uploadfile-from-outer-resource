@@ -1,0 +1,81 @@
+body {
+  margin-top: 10%;
+  background: #222637;
+  color: #8999dd;
+  font-size: 16px
+}
+
+h2 {
+  color: #ffffff;
+}
+
+label {
+  margin-top: 15px;
+}
+
+button {
+  margin-top: 30px;
+  background: #098362;
+  height: 60px;
+  color: white;
+  font-size: 26px;
+}
+
+.form-signin {
+  max-width: 590px;
+  max-height: 800px;
+  margin: 0 auto;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  border-radius: 20px;
+}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+  font-weight: normal;
+}
+
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.form-signin input .-webkit-autofil {
+  background: #293253;
+}
+
+.form-signin input {
+  border-radius: 1px;
+  background: #293253;
+  color: #8999dd;
+}
+
+@-webkit-keyframes autofill {
+  to {
+    color: #8999dd;
+    background: transparent;
+  }
+}
+
+input:-webkit-autofill {
+  -webkit-animation-name: autofill;
+  -webkit-animation-fill-mode: both;
+}
+
+.error-form {
+  background: #3f2f3a;
+  border: 1px solid #a94442;
+}
+
+.error-text {
+  text-align: -webkit-center;
+}
+

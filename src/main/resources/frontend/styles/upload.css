@@ -1,0 +1,62 @@
+body {
+  margin-top: 10%;
+  background: #222637;
+  color: #8999dd;
+  font-size: 16px
+}
+
+.logout-button {
+  background-color: darkslateblue;
+  height: 37px;
+  color: white;
+  font-size: 19px;
+  width: 160px;
+  margin-left: 85%;
+  margin-top: -110px;
+  padding-top: 5px;
+}
+
+.upload-button {
+  margin-top: 30px;
+  background: #098362;
+  height: 50px;
+  color: white;
+  font-size: 20px;
+  margin-left: 150px;
+}
+
+label {
+  margin-top: 15px;
+}
+
+.file-form {
+  position: absolute;
+  margin-left: 370px;
+  margin-top: 320px;
+}
+
+#file-input {
+  position: absolute;
+  margin-left: 190px;
+  margin-top: -80px;
+}
+
+.file-form > p {
+  position: absolute;
+  margin-left: 155px;
+  width: 325px;
+  margin-top: -180px;
+  font-size: 18px;
+}
+
+@-webkit-keyframes autofill {
+  to {
+    color: #8999dd;
+    background: transparent;
+  }
+}
+
+input:-webkit-autofill {
+  -webkit-animation-name: autofill;
+  -webkit-animation-fill-mode: both;
+}

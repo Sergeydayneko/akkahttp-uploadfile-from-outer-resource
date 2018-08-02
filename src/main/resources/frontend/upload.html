@@ -1,0 +1,18 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Загрузка файла</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/frontend/styles/upload.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="/frontend/javascript/upload.js"></script>
+</head>
+<body>
+<p class="logout-button btn btn-lg btn-block">Выход</p>
+<form method="post" action="fileUpload" enctype="multipart/form-data" class="file-form">
+  <p>Загрузите файл в формате xls или csv</p>
+  <input id="file-input" type="file" value="Обзор" name="file" multiple="multiple" accept=".xls, .csv">
+  <button class="upload-button btn btn-lg btn-block">Загрузить файл</button>
+</form>
+</body>
+</html>
