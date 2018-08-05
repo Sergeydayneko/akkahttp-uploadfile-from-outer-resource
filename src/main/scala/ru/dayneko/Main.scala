@@ -38,14 +38,14 @@ object Main extends App with JsonProtocols with Methods {
   /**
     * Session object initialize
     */
-  val sessionConfig                     = SessionConfig.default("0LrQsNC60L7QuS3QvdC40LHRg9C00Ywt0YLQsNC8LdGB0LXQutGA0LXRgi3QutCw0LrQvtC5LdC90LjQsdGD0LTRjC3RgtCw0Lwt0YHQtdC60YDQtdGCLdC60LDQutC+0Lkt0L3QuNCx0YPQtNGMLdGC0LDQvC3RgdC10LrRgNC10YIt0LrQsNC60L7QuS3QvdC40LHRg9C00Ywt0YLQsNC8LdGB0LXQutGA0LXRgg==")
-  implicit val sessionManager           = new SessionManager[SessionToken](sessionConfig)
-  implicit val refreshTokenStorage      = new InMemoryRefreshTokenStorage[SessionToken] {
+  val sessionConfig: SessionConfig                                           = SessionConfig.default("0LrQsNC60L7QuS3QvdC40LHRg9C00Ywt0YLQsNC8LdGB0LXQutGA0LXRgi3QutCw0LrQvtC5LdC90LjQsdGD0LTRjC3RgtCw0Lwt0YHQtdC60YDQtdGCLdC60LDQutC+0Lkt0L3QuNCx0YPQtNGMLdGC0LDQvC3RgdC10LrRgNC10YIt0LrQsNC60L7QuS3QvdC40LHRg9C00Ywt0YLQsNC8LdGB0LXQutGA0LXRgg==")
+  implicit val sessionManager: SessionManager[SessionToken]                   = new SessionManager[SessionToken](sessionConfig)
+  implicit val refreshTokenStorage: InMemoryRefreshTokenStorage[SessionToken] = new InMemoryRefreshTokenStorage[SessionToken] {
     override def log(msg: String): Unit = println(s"""$msg for current storage session token""")
   }
   val myRequiredSession                 = requiredSession(refreshable, usingCookies)
   val myInvalidateSession               = invalidateSession(refreshable, usingCookies)
-  def mySetSession(value: SessionToken) = setSession(refreshable, usingCookies, value)
+  def mySetSession(value: SessionToken): Directive0 = setSession(refreshable, usingCookies, value)
 
   implicit def rejectionHandler: RejectionHandler =
     RejectionHandler.newBuilder()
@@ -69,7 +69,7 @@ object Main extends App with JsonProtocols with Methods {
         } ~
         post {
           entity(as[UserPwd]) { body =>
-            val result = sender(HttpRequest(uri = Uri(s"http://172.28.0.19:8080/callrec/loginservlet?" +
+            val result = sender(HttpRequest(uri = Uri(s"http://127.0.0.1:8080/calls/loginserver" +
               s"loginname=${body.login}" +
               s"&password=${body.password}")))
               .flatMap(s => Unmarshal(s.entity).to[String])
@@ -102,13 +102,13 @@ object Main extends App with JsonProtocols with Methods {
                   val idCalls: String = parseFile(fields)
                   val cookieHeader: Cookie = akka.http.scaladsl.model.headers.Cookie("JSESSIONID", session.sessionId)
 
-                  val res: Future[HttpResponse] = sender(HttpRequest(uri = Uri(s"http://172.28.0.19:8080/callrec/downloadtoken;jsessionid=$sessionId?id_call[]=$idCalls&type=1&action=download"), headers = List(cookieHeader)))
+                  val res: Future[HttpResponse] = sender(HttpRequest(uri = Uri(s"http://127.0.0.1:8080/calls/uploadtoken;jsessionId=$sessionId?id_call[]=$idCalls&type=1&action=download"), headers = List(cookieHeader)))
                     .flatMap(s => Unmarshal(s.entity).to[String])
                     .map(s => parseToken(s))
                     .map((session.sessionId, _))
                     .flatMap({ case (s, t) =>
                       val cookieHeader = akka.http.scaladsl.model.headers.Cookie("JSESSIONID", s)
-                      sender(HttpRequest(uri = Uri(s"http://172.28.0.19:8080/callrec/sendcallfile.mp3;jsessionid=$s?token=$t&id_call[]=$idCalls&type=1&action=download"), headers = List(cookieHeader)))
+                      sender(HttpRequest(uri = Uri(s"http://127.0.0.1:8080/calls/sendcallfile.mp3;jsessionId=$s?token=$t&id_call[]=$idCalls&type=1&action=download"), headers = List(cookieHeader)))
                     })
 
                   onComplete(res) {
